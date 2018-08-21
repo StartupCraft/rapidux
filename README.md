@@ -1,9 +1,9 @@
-# rapidux
+# r{api}dux
 [![npm version](https://badge.fury.io/js/rapidux.svg)](https://badge.fury.io/js/rapidux)
 [![codecov](https://codecov.io/gh/StartupCraft/rapidux/branch/master/graph/badge.svg)](https://codecov.io/gh/StartupCraft/rapidux)
-[![CircleCI](https://circleci.com/gh/StartupCraft/rapidux/tree/v2.svg?style=svg)](https://circleci.com/gh/StartupCraft/rapidux/tree/v2)
+[![CircleCI](https://circleci.com/gh/StartupCraft/rapidux/tree/master.svg?style=svg)](https://circleci.com/gh/StartupCraft/rapidux/tree/master)
 
-Redux JSON-API handlers V2. New api
+R{api}dux is a Swiss army knife for dealing with JSON-API in redux
 
 [Data reducer example](DATA_REDUCER.MD)
 
