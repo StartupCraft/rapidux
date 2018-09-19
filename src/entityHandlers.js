@@ -57,15 +57,15 @@ export const createLoadHandler = (resourceType, options) => (
         : uniq([...get(state, mappedResourceType, []), ...payloadResource]),
     )
   }
+  const addKey = mapToKey ? capitalizeFirstLetter(mapToKey) : ''
 
   if (withLoading) {
-    const addKey = mapToKey ? capitalizeFirstLetter(mapToKey) : ''
     nextState[`isLoaded${addKey}`] = true
     nextState[`isLoading${addKey}`] = false
   }
 
   if (paged) {
-    nextState.paged = paged
+    nextState[`paged${addKey}`] = get(paged, 'pagination')
   }
 
   return state.merge({ ...nextState, ...addToState })

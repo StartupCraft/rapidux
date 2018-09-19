@@ -28,6 +28,7 @@ export const getEntities = (
     const all = {
       isLoading: state[`isLoading${addKey}`],
       isLoaded: state[`isLoaded${addKey}`],
+      paged: state[`paged${addKey}`],
     }
 
     const ids = state[entity]
@@ -47,11 +48,17 @@ export const createFields = (type, field, singular = false) => {
   const entity = field || type
   const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
 
-  return {
+  const fields = {
     [entity]: singular ? null : [],
     [`isLoading${addKey}`]: false,
     [`isLoaded${addKey}`]: false,
   }
+
+  if (!singular) {
+    fields[`paged${addKey}`] = null
+  }
+
+  return fields
 }
 
 export const createReducerHandlers = (
