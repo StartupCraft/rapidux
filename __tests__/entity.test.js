@@ -156,9 +156,10 @@ describe('Delete entity', () => {
 
 describe('Keep sorting', () => {
   test(tests.entity.keepSorting.title, () => {
-    const nextState = createLoadHandler('sorting', {
-      keepSorting: true,
-    })(posts, actions.entity.keepSorting)
+    const nextState = createLoadHandler('sorting')(
+      posts,
+      actions.entity.keepSorting,
+    )
 
     expect(nextState).toEqual(equals.entity[tests.entity.keepSorting.key])
   })

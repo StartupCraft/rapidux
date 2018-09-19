@@ -1,7 +1,7 @@
 import difference from 'lodash/difference'
 import isArray from 'lodash/isArray'
-import values from 'lodash/values'
 import uniq from 'lodash/uniq'
+import head from 'lodash/head'
 import map from 'lodash/map'
 import get from 'lodash/get'
 import set from 'lodash/set'
@@ -9,7 +9,7 @@ import set from 'lodash/set'
 import {
   capitalizeFirstLetter,
   nullifyIfIncludes,
-  keepSortByKey,
+  //  keepSortByKey,
 } from './helpers'
 
 const defaultLoadOptions = {
@@ -18,7 +18,6 @@ const defaultLoadOptions = {
   singular: false,
   withReplace: false,
   addToState: {},
-  keepSorting: true,
 }
 
 const defaultDeleteOptions = {
@@ -27,25 +26,19 @@ const defaultDeleteOptions = {
 
 export const createLoadHandler = (resourceType, options) => (
   state,
-  { payload, paged = null },
+  { meta, payload, paged = null },
 ) => {
-  const {
-    mapToKey,
-    withLoading,
-    singular,
-    withReplace,
-    addToState,
-    keepSorting,
-  } = {
+  const { mapToKey, withLoading, singular, withReplace, addToState } = {
     ...defaultLoadOptions,
     ...options,
   }
 
-  const data = get(payload, `data.${resourceType}`, false)
-  const meta = get(payload, 'data.meta', false)
+  const endpoint = get(meta, 'endpoint')
 
-  const payloadResource =
-    keepSorting && !singular && meta ? keepSortByKey(meta, data, 'id') : data
+  const data = get(payload, `data.${resourceType}`, false)
+  const metaData = get(payload, `data.meta[${endpoint}].data`, false)
+
+  const payloadResource = map(metaData || data, 'id')
 
   const mappedResourceType = mapToKey || resourceType
 
@@ -54,17 +47,14 @@ export const createLoadHandler = (resourceType, options) => (
   }
 
   if (singular) {
-    set(nextState, mappedResourceType, get(values(payloadResource), '0.id'))
+    set(nextState, mappedResourceType, head(payloadResource))
   } else {
     set(
       nextState,
       mappedResourceType,
       withReplace
-        ? map(payloadResource, 'id')
-        : uniq([
-            ...get(state, mappedResourceType, []),
-            ...map(payloadResource, 'id'),
-          ]),
+        ? payloadResource
+        : uniq([...get(state, mappedResourceType, []), ...payloadResource]),
     )
   }
 

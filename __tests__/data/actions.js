@@ -10,7 +10,19 @@ export default {
               id: 1,
             },
           },
+          meta: {
+            '/posts': {
+              data: [
+                {
+                  id: 1,
+                },
+              ],
+            },
+          },
         },
+      },
+      meta: {
+        endpoint: '/posts',
       },
     },
     addOneWithReplace: {
@@ -74,6 +86,7 @@ export default {
       },
     },
     keepSorting: {
+      meta: { endpoint: '/sorting/some' },
       payload: {
         data: {
           sorting: {
