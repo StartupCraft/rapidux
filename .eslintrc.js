@@ -11,8 +11,7 @@ module.exports = {
     node: true,
   },
   plugins: [
-    "prettier",
-    "flowtype"
+    "prettier"
   ],
   rules: {
     "prettier/prettier": [1, { singleQuote: true, semi: false, trailingComma: "all" }],

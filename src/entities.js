@@ -20,29 +20,34 @@ export const getEntities = (
   getData,
   { type, field, singular = false },
 ) =>
-  createSelector(getState, getData, (state, data) => {
-    const entity = field || type
+  createSelector(
+    getState,
+    getData,
+    (state, data) => {
+      const entity = field || type
 
-    const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
+      const addKey =
+        !field || field === type ? '' : capitalizeFirstLetter(field)
 
-    const all = {
-      isLoading: state[`isLoading${addKey}`],
-      isLoaded: state[`isLoaded${addKey}`],
-      paged: state[`paged${addKey}`],
-    }
+      const all = {
+        isLoading: state[`isLoading${addKey}`],
+        isLoaded: state[`isLoaded${addKey}`],
+        paged: state[`paged${addKey}`],
+      }
 
-    const ids = state[entity]
+      const ids = state[entity]
 
-    const entityKey = singular ? 'entity' : 'entities'
+      const entityKey = singular ? 'entity' : 'entities'
 
-    if (!isEmpty(ids)) {
-      all[entityKey] = denormalize(data, type, ids)
-    } else {
-      all[entityKey] = singular ? {} : []
-    }
+      if (!isEmpty(ids)) {
+        all[entityKey] = denormalize(data, type, ids)
+      } else {
+        all[entityKey] = singular ? {} : []
+      }
 
-    return all
-  })
+      return all
+    },
+  )
 
 export const createFields = (type, field, singular = false) => {
   const entity = field || type
