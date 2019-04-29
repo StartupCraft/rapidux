@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 
 import get from 'lodash/get'
 import map from 'lodash/map'
+import sortBy from 'lodash/sortBy'
 import isArray from 'lodash/isArray'
 import isEmpty from 'lodash/isEmpty'
 
@@ -18,7 +19,7 @@ export const denormalize = (entities, type, id) =>
 export const getEntities = (
   getState,
   getData,
-  { type, field, singular = false },
+  { type, field, sorted = false, singular = false },
 ) =>
   createSelector(
     getState,
@@ -29,10 +30,12 @@ export const getEntities = (
       const addKey =
         !field || field === type ? '' : capitalizeFirstLetter(field)
 
+      const paged = get(state, `paged${addKey}`)
+
       const all = {
         isLoading: state[`isLoading${addKey}`],
         isLoaded: state[`isLoaded${addKey}`],
-        paged: state[`paged${addKey}`],
+        paged,
       }
 
       const ids = state[entity]
@@ -43,6 +46,12 @@ export const getEntities = (
         all[entityKey] = denormalize(data, type, ids)
       } else {
         all[entityKey] = singular ? {} : []
+      }
+
+      if (sorted && paged) {
+        all[entityKey] = sortBy(all[entityKey], item =>
+          all.paged.records.indexOf(item.id),
+        )
       }
 
       return all

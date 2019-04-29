@@ -65,7 +65,7 @@ export const createLoadHandler = (resourceType, options) => (
   }
 
   if (paged) {
-    nextState[`paged${addKey}`] = get(paged, 'pagination')
+    nextState[`paged${addKey}`] = paged
   }
 
   return state.merge({ ...nextState, ...addToState })
