@@ -1,6 +1,6 @@
 {
   "name": "rapidux",
-  "version": "1.0.0-next",
+  "version": "1.0.1-next",
   "description": "Swiss army knife for redux and json api development",
   "main": "./lib/index.js",
   "repository": "https://github.com/StartupCraft/rapidux.git",
@@ -44,28 +44,28 @@
     ]
   },
   "dependencies": {
-    "@babel/preset-env": "7.4.4",
-    "lodash": "4.17.11",
-    "redux-object": "0.5.9",
+    "@babel/preset-env": "7.6.0",
+    "lodash": "4.17.15",
+    "redux-object": "0.5.10",
     "reselect": "4.0.0",
     "seamless-immutable": "7.1.4"
   },
   "devDependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.4",
-    "babel-eslint": "10.0.1",
-    "babel-jest": "24.7.1",
+    "@babel/cli": "7.6.0",
+    "@babel/core": "7.6.0",
+    "babel-eslint": "10.0.3",
+    "babel-jest": "24.9.0",
     "babel-preset-env": "1.7.0",
-    "codecov": "3.3.0",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-config-prettier": "4.2.0",
-    "eslint-plugin-import": "2.17.2",
-    "eslint-plugin-prettier": "3.0.1",
-    "husky": "2.1.0",
-    "jest": "24.7.1",
-    "lint-staged": "8.1.5",
-    "prettier": "1.17.0",
-    "regenerator-runtime": "0.13.2"
+    "codecov": "3.5.0",
+    "eslint": "6.4.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-prettier": "3.1.0",
+    "husky": "3.0.5",
+    "jest": "24.9.0",
+    "lint-staged": "9.2.5",
+    "prettier": "1.18.2",
+    "regenerator-runtime": "0.13.3"
   }
 }
