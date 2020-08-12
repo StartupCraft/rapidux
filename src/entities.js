@@ -83,17 +83,27 @@ export const createReducerHandlers = (
   const field = get(handlerOptions, 'mapToKey')
   const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
 
-  return {
-    [actionTypes.REQUEST]: state =>
-      state.merge({
+  const handlers = {
+    [actionTypes.SUCCESS]: createLoadHandler(type, handlerOptions),
+  }
+
+  const withLoading = get(handlerOptions, 'withLoading', true)
+
+  if (withLoading) {
+    handlers[actionTypes.REQUEST] = state => {
+      return state.merge({
         [`isLoading${addKey}`]: true,
         [`isLoaded${addKey}`]: false,
-      }),
-    [actionTypes.SUCCESS]: createLoadHandler(type, handlerOptions),
-    [actionTypes.FAILURE]: state =>
-      state.merge({
+      })
+    }
+
+    handlers[actionTypes.FAILURE] = state => {
+      return state.merge({
         [`isLoading${addKey}`]: false,
         [`isLoaded${addKey}`]: false,
-      }),
+      })
+    }
   }
+
+  return handlers
 }
