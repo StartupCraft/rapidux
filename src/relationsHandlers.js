@@ -1,14 +1,14 @@
-import merge from 'lodash/merge'
 import get from 'lodash/get'
-import mergeWith from 'lodash/mergeWith'
+import merge from 'lodash/merge'
 import reject from 'lodash/reject'
+import mergeWith from 'lodash/mergeWith'
 
 import mergers from './mergers'
 
 const getRelationId = (relationName, value) =>
   get(value, `relationships.${relationName}.data.id`)
 
-const extractRelationsIds = relationName => (relationsIds, current) => {
+const extractRelationsIds = (relationName) => (relationsIds, current) => {
   const relationId = getRelationId(relationName, current)
   const hasRelId = relationsIds.indexOf(relationId) >= 0
   return hasRelId ? relationsIds : [...relationsIds, relationId]
@@ -30,11 +30,11 @@ export const createRelationAddHandler = (type, relationName, options) => (
 
   createdRelations
     .reduce(extractRelationsIds(relationName), []) // collect affected relatives ids
-    .forEach(relationId =>
+    .forEach((relationId) =>
       updatedRelativesMap.set(relationId, state[relationId]),
     ) // collect affected relatives state
 
-  createdRelations.forEach(current => {
+  createdRelations.forEach((current) => {
     const currentRelationId = getRelationId(relationName, current)
     if (!currentRelationId) return
     const relative = updatedRelativesMap.get(currentRelationId)
@@ -64,7 +64,7 @@ export const createRelationAddHandler = (type, relationName, options) => (
   return merge({}, state, ...updatedRelatives)
 }
 
-export const createRelationDeleteHandler = relationsName => (
+export const createRelationDeleteHandler = (relationsName) => (
   state,
   { payload },
 ) => {

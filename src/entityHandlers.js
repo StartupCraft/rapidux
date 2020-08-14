@@ -1,10 +1,10 @@
-import difference from 'lodash/difference'
-import isArray from 'lodash/isArray'
+import get from 'lodash/get'
+import map from 'lodash/map'
+import set from 'lodash/set'
 import uniq from 'lodash/uniq'
 import head from 'lodash/head'
-import map from 'lodash/map'
-import get from 'lodash/get'
-import set from 'lodash/set'
+import isArray from 'lodash/isArray'
+import difference from 'lodash/difference'
 
 import {
   capitalizeFirstLetter,

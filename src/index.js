@@ -1,11 +1,3 @@
-import { createLoadHandler, createDeleteHandler } from './entityHandlers'
-import {
-  createRelationAddHandler,
-  createRelationDeleteHandler,
-} from './relationsHandlers'
-
-import mergers from './mergers'
-
 import {
   getEntities,
   denormalize,
@@ -13,17 +5,32 @@ import {
   createReducerHandlers,
 } from './entities'
 
-import { getFirstEntity } from './helpers'
+import { createLoadHandler, createDeleteHandler } from './entityHandlers'
 
-export {
-  createLoadHandler,
-  createDeleteHandler,
+import { getFirstEntity, keepSortByKey } from './helpers'
+
+import mergers from './mergers'
+
+import {
   createRelationAddHandler,
   createRelationDeleteHandler,
-  mergers,
+} from './relationsHandlers'
+
+export {
+  // Entities
   getEntities,
   denormalize,
   createFields,
   createReducerHandlers,
+  // Entity handlers
+  createLoadHandler,
+  createDeleteHandler,
+  // Relation handlers
+  createRelationAddHandler,
+  createRelationDeleteHandler,
+  // Mergers
+  mergers,
+  // Helpers
   getFirstEntity,
+  keepSortByKey,
 }

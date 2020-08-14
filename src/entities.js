@@ -12,7 +12,7 @@ import { createLoadHandler } from './entityHandlers'
 import { capitalizeFirstLetter } from './helpers'
 
 export const denormalize = (entities, type, id) =>
-  build(entities, type, isArray(id) ? map(id, i => i.id || i) : id, {
+  build(entities, type, isArray(id) ? map(id, (i) => i.id || i) : id, {
     eager: true,
   })
 
@@ -21,42 +21,37 @@ export const getEntities = (
   getData,
   { type, field, sorted = false, singular = false },
 ) =>
-  createSelector(
-    getState,
-    getData,
-    (state, data) => {
-      const entity = field || type
+  createSelector(getState, getData, (state, data) => {
+    const entity = field || type
 
-      const addKey =
-        !field || field === type ? '' : capitalizeFirstLetter(field)
+    const addKey = !field || field === type ? '' : capitalizeFirstLetter(field)
 
-      const paged = get(state, `paged${addKey}`)
+    const paged = get(state, `paged${addKey}`)
 
-      const all = {
-        isLoading: state[`isLoading${addKey}`],
-        isLoaded: state[`isLoaded${addKey}`],
-        paged,
-      }
+    const all = {
+      isLoading: state[`isLoading${addKey}`],
+      isLoaded: state[`isLoaded${addKey}`],
+      paged,
+    }
 
-      const ids = state[entity]
+    const ids = state[entity]
 
-      const entityKey = singular ? 'entity' : 'entities'
+    const entityKey = singular ? 'entity' : 'entities'
 
-      if (!isEmpty(ids)) {
-        all[entityKey] = denormalize(data, type, ids)
-      } else {
-        all[entityKey] = singular ? {} : []
-      }
+    if (!isEmpty(ids)) {
+      all[entityKey] = denormalize(data, type, ids)
+    } else {
+      all[entityKey] = singular ? {} : []
+    }
 
-      if (sorted && paged) {
-        all[entityKey] = sortBy(all[entityKey], item =>
-          all.paged.records.indexOf(item.id),
-        )
-      }
+    if (sorted && paged) {
+      all[entityKey] = sortBy(all[entityKey], (item) =>
+        all.paged.records.indexOf(item.id),
+      )
+    }
 
-      return all
-    },
-  )
+    return all
+  })
 
 export const createFields = (type, field, singular = false) => {
   const entity = field || type
@@ -90,14 +85,14 @@ export const createReducerHandlers = (
   const withLoading = get(handlerOptions, 'withLoading', true)
 
   if (withLoading) {
-    handlers[actionTypes.REQUEST] = state => {
+    handlers[actionTypes.REQUEST] = (state) => {
       return state.merge({
         [`isLoading${addKey}`]: true,
         [`isLoaded${addKey}`]: false,
       })
     }
 
-    handlers[actionTypes.FAILURE] = state => {
+    handlers[actionTypes.FAILURE] = (state) => {
       return state.merge({
         [`isLoading${addKey}`]: false,
         [`isLoaded${addKey}`]: false,

@@ -84,6 +84,6 @@ export default createReducer(initialState, handlers)
 ```js
 export const createReducer = (initialState, handlers) => (
   state = initialState,
-  action,
+  action
 ) => (handlers[action.type] ? handlers[action.type](state, action) : state)
 ```
