@@ -60,6 +60,10 @@ export default {
       key: 'keepSorting',
       title: 'keep sorting from meta',
     },
+    respectWithLoadingProp: {
+      key: 'respectWithLoadingProp',
+      title: "respect 'withLoading' prop",
+    },
   },
   relations: {
     addOne: {

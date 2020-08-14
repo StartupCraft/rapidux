@@ -1,4 +1,8 @@
-import { createLoadHandler, createDeleteHandler } from '../src'
+import {
+  createLoadHandler,
+  createDeleteHandler,
+  createReducerHandlers,
+} from '../src'
 
 import tests from './tests'
 import actions from './data/actions'
@@ -162,5 +166,23 @@ describe('Keep sorting', () => {
     )
 
     expect(nextState).toEqual(equals.entity[tests.entity.keepSorting.key])
+  })
+})
+
+describe("'createReducerHandlers' options", () => {
+  const COPY = {
+    REQUEST: 'copy/REQUEST',
+    SUCCESS: 'copy/SUCCESS',
+    FAILURE: 'copy/FAILURE',
+  }
+
+  test(tests.entity.respectWithLoadingProp.title, () => {
+    const handlers = createReducerHandlers('shifts', COPY, {
+      withLoading: false,
+    })
+
+    expect(handlers).not.toHaveProperty(COPY.REQUEST)
+    expect(handlers).not.toHaveProperty(COPY.FAILURE)
+    expect(handlers).toHaveProperty(COPY.SUCCESS)
   })
 })
