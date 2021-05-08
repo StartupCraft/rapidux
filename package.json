@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "7.11.0",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "redux-object": "0.5.10",
     "reselect": "4.0.0",
     "seamless-immutable": "7.1.4"
